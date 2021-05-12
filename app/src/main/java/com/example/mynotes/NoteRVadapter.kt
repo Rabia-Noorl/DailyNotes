@@ -16,6 +16,8 @@ class NoteRVadapter(private val context: Context, private val listner: INotesRVA
     {
         val textView: TextView = itemView.findViewById<TextView>(R.id.note_Tv)
         val deleteButton: ImageView = itemView.findViewById<ImageView>(R.id.delete_btn)
+        val editNotesbtn: ImageView = itemView.findViewById<ImageView>(R.id.editNoteTV)
+        val dateTime: TextView = itemView.findViewById<TextView>(R.id.data_time_TV)
 
     }
 
@@ -24,6 +26,9 @@ class NoteRVadapter(private val context: Context, private val listner: INotesRVA
         viewHolder.deleteButton.setOnClickListener{
             listner.onItemClick(allNotes[viewHolder.adapterPosition])
         }
+        viewHolder.editNotesbtn.setOnClickListener{
+            listner.onEditItemClick(allNotes[viewHolder.adapterPosition])
+        }
        return viewHolder
 
     }
@@ -31,6 +36,7 @@ class NoteRVadapter(private val context: Context, private val listner: INotesRVA
     override fun onBindViewHolder(holder: NoteviewHolder, position: Int) {
         val currentPosition = allNotes[position]
         holder.textView.text = currentPosition.text
+        holder.dateTime.text = currentPosition.currentDateTimes
     }
     fun updatList(newList: List<Note>)
     {
@@ -46,4 +52,5 @@ class NoteRVadapter(private val context: Context, private val listner: INotesRVA
 interface INotesRVAdaptor
 {
     fun onItemClick(note: Note)
+    fun onEditItemClick(note: Note)
 }
